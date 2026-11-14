@@ -1,4 +1,4 @@
-﻿OverlayRL 1.3 — overlay de session pour Rocket League
+﻿OverlayRL 1.4 — overlay de session pour Rocket League
 ======================================================
 
 Affiche pendant que tu joues : victoires, défaites, série en cours, rank actuel,
@@ -58,6 +58,28 @@ CE QUI EST COMPTÉ
 - Victoire / défaite : à la fin de chaque match classé.
 - Match classé quitté avant la fin : compté comme une défaite (option).
 - Casual, parties privées, tournois, entraînement, replays : ignorés.
+- Changement de mode classé (2v2 -> 3v3, 3v3 -> paniers...) : la session repart
+  de zéro au premier match du nouveau mode. Décochable dans les paramètres.
+  Un passage par le casual entre les deux ne compte pas comme un changement.
+
+
+RACCOURCIS CLAVIER
+------------------
+Ils fonctionnent pendant le jeu, sans quitter la partie :
+
+  Ctrl + Alt + F9    ajouter une victoire
+  Ctrl + Alt + F10   ajouter une défaite
+  Ctrl + Alt + F11   remettre le score à zéro
+
+Un ajout manuel compte comme un vrai match : le MMR estimé bouge aussi de
++9 ou -9. La remise à zéro ne touche pas au MMR.
+
+Pour les changer : paramètres, section « Raccourcis clavier ». Écris la
+combinaison, par exemple « Ctrl+Alt+F9 », « Maj+Suppr », « Ctrl+Alt+PavNum1 »,
+« Alt+PagePréc ». Il faut au moins Ctrl, Alt ou Maj. Laisse vide pour
+désactiver un raccourci. La combinaison est prise en compte quand tu cliques
+ailleurs dans la fenêtre, et la ligne sous les champs dit si Windows l'accepte
+(une combinaison déjà utilisée par une autre application est refusée).
 
 
 MMR ET RANK
@@ -101,6 +123,9 @@ ANTI-CHEAT ET PERFORMANCES
   documentation officielle. Une copie de l'original est gardée à côté
   (.overlayrl.bak). Une mise à jour du jeu peut remettre le fichier d'origine :
   OverlayRL le corrige alors au lancement suivant.
+- Les raccourcis passent par RegisterHotKey, la fonction prévue par Windows :
+  l'application demande une combinaison précise et Windows la prévient quand
+  elle est pressée. Aucune surveillance du clavier, aucune autre touche vue.
 - Charge : une vérification de la liste des processus toutes les 2 s au repos
   (0,5 s en jeu), 2 messages par seconde venant du jeu, et un nouveau dessin
   uniquement quand un chiffre change.
@@ -120,10 +145,9 @@ METTRE À JOUR
 Clic droit sur l'icône « +3 » > « Quitter OverlayRL », remplace OverlayRL.exe
 par le nouveau, puis relance-le. Tes réglages sont conservés.
 
-Nouveautés de la 1.3 : quand tu es le chef du groupe, le vrai MMR du jeu est
-repris à chaque recherche de match (plus seulement quand tu joues seul), et il
-s'affiche dès le lancement de la recherche. Correction : un refus du site ne
-fait plus revenir le MMR estimé à une ancienne valeur.
+Nouveautés de la 1.4 : la session repart de zéro quand on change de mode
+classé, et trois raccourcis clavier permettent d'ajouter une victoire, une
+défaite ou de remettre le score à zéro sans quitter la partie.
 
 Si Windows bloque le programme avec « Le Contrôle intelligent des applications
 a bloqué... » : cette protection n'accepte pas d'exception par programme. Il
