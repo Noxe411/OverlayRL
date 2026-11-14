@@ -1,0 +1,139 @@
+﻿OverlayRL 1.3 — overlay de session pour Rocket League
+======================================================
+
+Affiche pendant que tu joues : victoires, défaites, série en cours, rank actuel,
+rank suivant, MMR et MMR restant. Seuls les matchs CLASSÉS sont comptés
+(1v1, 2v2, 3v3, paniers, rumble, dropshot, neige, heatseeker).
+
+
+INSTALLATION (une seule fois)
+-----------------------------
+1. Copie OverlayRL.exe dans un dossier où il restera (ex. Documents\OverlayRL).
+2. Double-clique dessus. Si Windows affiche « Windows a protégé votre ordinateur »
+   (le programme n'est pas signé) : « Informations complémentaires » puis
+   « Exécuter quand même ».
+3. La fenêtre des paramètres s'ouvre. Regarde la ligne « API du jeu » :
+   - « activée » : rien à faire ;
+   - « NON ACTIVÉE » : clique sur « Activer l'API du jeu » (accepte la demande
+     d'administrateur si elle apparaît).
+4. Dans Rocket League : Paramètres > Vidéo > Mode d'affichage > Fenêtré sans bordure.
+5. Si le jeu était ouvert pendant l'étape 3, redémarre-le.
+
+Ensuite tu n'as plus rien à lancer : OverlayRL démarre avec Windows et attend
+dans la zone de notification (icône « +3 » près de l'horloge). L'overlay
+apparaît quand Rocket League se lance et disparaît dans la demi-seconde qui
+suit sa fermeture. La session repart de zéro à chaque lancement du jeu.
+
+
+PARAMÈTRES
+----------
+Clic sur l'icône « +3 » (clic droit : menu, dont « Quitter »).
+- Plateforme : Epic Games par défaut, ou Steam. Pendant un match, la plateforme
+  et le pseudo sont de toute façon lus directement dans le jeu.
+- Pseudo : laisse vide (détection automatique). À remplir seulement si le
+  mauvais joueur est détecté.
+- Skin : 1 = chiffres seuls « V / D | série » (+ devant une série de victoires,
+  − devant une série de défaites) ; 2 = carte ; 3 = bandeau ; 4 = néon.
+- Position, taille, opacité, marges.
+- Tant que la fenêtre des paramètres est ouverte, l'overlay est affiché en
+  aperçu (avec des valeurs d'exemple si le jeu n'est pas lancé).
+
+
+LOGOS DE RANK
+-------------
+En attendant tes logos, des écussons de remplacement sont dessinés.
+Pour utiliser les tiens : bouton « Dossier des logos de rank », puis dépose
+23 images PNG nommées d'après le rank :
+   0 = Non classé, 1 = Bronze I, 2 = Bronze II, 3 = Bronze III,
+   4-6 = Argent I-III, 7-9 = Or I-III, 10-12 = Platine I-III,
+   13-15 = Diamant I-III, 16-18 = Champion I-III,
+   19-21 = Grand Champion I-III, 22 = Supersonic Legend.
+Seul le dernier nombre du nom compte : « 16.png », « rank-16.png » ou
+« s32rank16.png » conviennent tous. Ferme la fenêtre des paramètres (ou relance
+le jeu) pour qu'ils soient pris en compte.
+
+
+CE QUI EST COMPTÉ
+-----------------
+- Victoire / défaite : à la fin de chaque match classé.
+- Match classé quitté avant la fin : compté comme une défaite (option).
+- Casual, parties privées, tournois, entraînement, replays : ignorés.
+
+
+MMR ET RANK
+-----------
+Principe : une valeur de départ, puis +9 après chaque victoire classée et -9
+après chaque défaite classée.
+
+- Valeur de départ : dans les paramètres, ligne « MMR actuel (lu dans le
+  jeu) », tape ton MMR, choisis le mode, clique sur « Définir ». À faire une
+  fois par mode ; la valeur est gardée d'un lancement à l'autre.
+- Après chaque match classé, le MMR affiché bouge de 9 points. Il est précédé
+  d'un « ~ » car c'est une estimation : le vrai gain varie d'un match à
+  l'autre, surtout en groupe. Le rank affiché suit ce MMR estimé.
+- Pour recaler : retape la vraie valeur dans « MMR actuel » quand tu veux.
+- Recalage automatique par le jeu : à chaque recherche de match, le jeu écrit
+  dans son journal le vrai MMR du CHEF DE GROUPE pour le mode choisi. OverlayRL
+  le reprend (sans « ~ ») dès le lancement de la recherche si :
+    * tu cherches seul, ou c'est toi qui as créé le groupe (tu en es le chef) ;
+    * un seul mode est coché.
+  Si quelqu'un d'autre mène le groupe, la valeur écrite est la sienne : elle
+  est ignorée et l'estimation +9 / -9 continue.
+- Le site rlstats.net est aussi interrogé ; s'il refuse (protection
+  anti-robot), OverlayRL arrête après 3 refus, jusqu'au prochain lancement du
+  jeu.
+- « MMR restant » est approximatif : les seuils entre ranks ne sont pas
+  publiés par Psyonix et bougent un peu à chaque saison.
+- Le pas de 9 points se change dans %APPDATA%\OverlayRL\config.json
+  (« mmrStep »), OverlayRL fermé.
+- La ligne « MMR » des paramètres indique la valeur affichée, sa source et
+  l'heure.
+
+
+ANTI-CHEAT ET PERFORMANCES
+--------------------------
+- OverlayRL n'injecte rien dans le jeu, ne lit pas sa mémoire et n'ouvre même
+  pas son processus. Il écoute la « Stats API » officielle de Psyonix (le jeu
+  envoie lui-même ses données sur un port local), lit le journal texte du jeu,
+  et affiche une fenêtre Windows ordinaire par-dessus.
+- « Activer l'API du jeu » modifie une ligne du fichier
+  <jeu>\TAGame\Config\DefaultStatsAPI.ini (PacketSendRate), comme l'indique la
+  documentation officielle. Une copie de l'original est gardée à côté
+  (.overlayrl.bak). Une mise à jour du jeu peut remettre le fichier d'origine :
+  OverlayRL le corrige alors au lancement suivant.
+- Charge : une vérification de la liste des processus toutes les 2 s au repos
+  (0,5 s en jeu), 2 messages par seconde venant du jeu, et un nouveau dessin
+  uniquement quand un chiffre change.
+
+
+EN CAS DE PROBLÈME
+------------------
+- L'overlay ne s'affiche pas : vérifie « Fenêtré sans bordure », puis la partie
+  « État » des paramètres.
+- Rien n'est compté : la ligne « API du jeu » doit indiquer « connectée » quand
+  le jeu est lancé. Sinon : « Activer l'API du jeu », puis redémarre le jeu.
+- Journal de diagnostic : %APPDATA%\OverlayRL\overlayrl.log
+
+
+METTRE À JOUR
+-------------
+Clic droit sur l'icône « +3 » > « Quitter OverlayRL », remplace OverlayRL.exe
+par le nouveau, puis relance-le. Tes réglages sont conservés.
+
+Nouveautés de la 1.3 : quand tu es le chef du groupe, le vrai MMR du jeu est
+repris à chaque recherche de match (plus seulement quand tu joues seul), et il
+s'affiche dès le lancement de la recherche. Correction : un refus du site ne
+fait plus revenir le MMR estimé à une ancienne valeur.
+
+Si Windows bloque le programme avec « Le Contrôle intelligent des applications
+a bloqué... » : cette protection n'accepte pas d'exception par programme. Il
+faut la désactiver dans Sécurité Windows > Contrôle des applications et du
+navigateur pour pouvoir lancer OverlayRL.
+
+
+DÉSINSTALLER
+------------
+Décoche « Démarrer avec Windows », « Quitter OverlayRL » depuis l'icône, puis
+supprime OverlayRL.exe et le dossier %APPDATA%\OverlayRL.
+
+Police Inter (SIL Open Font License 1.1) incluse dans le programme.
