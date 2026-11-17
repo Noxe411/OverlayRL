@@ -8,7 +8,8 @@ rank suivant, MMR et MMR restant. Seuls les matchs CLASSÉS sont comptés
 
 INSTALLATION (une seule fois)
 -----------------------------
-1. Copie OverlayRL.exe dans un dossier où il restera (ex. Documents\OverlayRL).
+1. Décompresse l'archive et place OverlayRL.exe dans un dossier où il restera
+   (ex. Documents\OverlayRL).
 2. Double-clique dessus. Si Windows affiche « Windows a protégé votre ordinateur »
    (le programme n'est pas signé) : « Informations complémentaires » puis
    « Exécuter quand même ».
@@ -67,15 +68,15 @@ RACCOURCIS CLAVIER
 ------------------
 Ils fonctionnent pendant le jeu, sans quitter la partie :
 
-  Ctrl + Alt + F9    ajouter une victoire
-  Ctrl + Alt + F10   ajouter une défaite
-  Ctrl + Alt + F11   remettre le score à zéro
+  Ctrl + Alt + V     ajouter une victoire
+  Ctrl + Alt + D     ajouter une défaite
+  Ctrl + Alt + R     remettre le score à zéro
 
 Un ajout manuel compte comme un vrai match : le MMR estimé bouge aussi de
 +9 ou -9. La remise à zéro ne touche pas au MMR.
 
 Pour les changer : paramètres, section « Raccourcis clavier ». Écris la
-combinaison, par exemple « Ctrl+Alt+F9 », « Maj+Suppr », « Ctrl+Alt+PavNum1 »,
+combinaison, par exemple « Ctrl+Alt+V », « Maj+Suppr », « Ctrl+Alt+PavNum1 »,
 « Alt+PagePréc ». Il faut au moins Ctrl, Alt ou Maj. Laisse vide pour
 désactiver un raccourci. La combinaison est prise en compte quand tu cliques
 ailleurs dans la fenêtre, et la ligne sous les champs dit si Windows l'accepte
